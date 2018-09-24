@@ -7,7 +7,6 @@
 using namespace std;
 
 struct Variable{
-    public:
     int id;
     bool isTrue;
     static int counter;
@@ -20,11 +19,8 @@ struct Variable{
             counter++;
             variableToId[s]=counter;
             idToVariable[counter]=s;
-            id=counter;
         }
-        else{
-            id=variableToId[s];
-        }
+        id=variableToId[s];
     }
     virtual string repr(){}
 
