@@ -36,4 +36,9 @@
 # Other
 *.pyc
 *.log
-
+*.out
+*.satoutput
+*.satinput
+*.txt
+*.info
+*.subgraphs
