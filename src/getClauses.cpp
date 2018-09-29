@@ -66,25 +66,6 @@ int main(int argc, char** argv){
             // vector<Variable> c0;            
             vector<int> c0;
             for(int agency=1;agency<=numAgencies;agency++){
-                // vector<Variable> c1;
-                // c1.push_back(NodeAgency(n1,agency,true));
-                // c1.push_back(NodePairAgency(n1,n2,agency,false));
-            
-                // vector<Variable> c2;
-                // c2.push_back(NodeAgency(n1,agency,false));
-                // c2.push_back(NodePairAgency(n1,n2,agency,false));
-                // c2.push_back(NodeAgency(n2,agency,true));
-
-                // vector<Variable> c3;
-                // c3.push_back(NodeAgency(n1,agency,false));
-                // c3.push_back(NodePairAgency(n1,n2,agency,true));
-                // c3.push_back(NodeAgency(n2,agency,false));
-
-                // clauses.push_back(c1);
-                // clauses.push_back(c2);
-                // clauses.push_back(c3);
-
-                // c0.push_back(NodePairAgency(n1,n2,agency,true));
                 vector<int> c1;
                 c1.push_back(n1*x+agency);
                 c1.push_back(-indexCounter);
@@ -122,52 +103,12 @@ int main(int argc, char** argv){
             if(graph[n1].find(n2)!=graph[n1].end()) continue;
 
             for(int agency=1;agency<=numAgencies;agency++){
-                // vector<Variable> c1;
-                // c1.push_back(NodeAgency(n1,agency,true));
-                // c1.push_back(NodePairAgency(n1,n2,agency,false));
-            
-                // vector<Variable> c2;
-                // c2.push_back(NodeAgency(n1,agency,false));
-                // c2.push_back(NodePairAgency(n1,n2,agency,false));
-                // c2.push_back(NodeAgency(n2,agency,true));
-
-                // vector<Variable> c3;
-                // c3.push_back(NodeAgency(n1,agency,false));
-                // c3.push_back(NodePairAgency(n1,n2,agency,true));
-                // c3.push_back(NodeAgency(n2,agency,false));
-
-                // clauses.push_back(c1);
-                // clauses.push_back(c2);
-                // clauses.push_back(c3);
-
-                // vector<Variable> c0;
-
-                // c0.push_back(NodePairAgency(n1,n2,agency,false));
-                // clauses.push_back(c0);
-
-                vector<int> c1;
-                c1.push_back(n1*x+agency);
-                c1.push_back(-indexCounter);
-            
-                vector<int> c2;
-                c2.push_back(-(n1*x+agency) );
-                c2.push_back(-indexCounter);
-                c2.push_back(n2*x+agency);
-
-                vector<int> c3;
-                c3.push_back(-(n1*x+agency) );
-                c3.push_back(indexCounter);
-                c3.push_back(-(n2*x+agency));
-
-                clauses.push_back(c1);
-                clauses.push_back(c2);
-                clauses.push_back(c3);
-
                 vector<int> c0;
-                c0.push_back(-indexCounter);
+
+                c0.push_back(-(n1*x+agency) );
+                c0.push_back(-(n2*x+agency));
 
                 clauses.push_back(c0);
-                indexCounter++;
 
 
             }
@@ -187,26 +128,6 @@ int main(int argc, char** argv){
             // vector<Variable> c0;
             vector<int> c0;
             for(int node=1;node<=numVertices;node++){
-                // vector<Variable> c1;
-                // c1.push_back(NodeAgency(node,a1,true));
-                // c1.push_back(AgencyPairNode(a1,a2,node,false));
-            
-                // vector<Variable> c2;
-                // c2.push_back(NodeAgency(node,a1,false));
-                // c2.push_back(AgencyPairNode(a1,a2,node,false));
-                // c2.push_back(NodeAgency(node,a2,false));
-                
-
-                // vector<Variable> c3;
-                // c3.push_back(NodeAgency(node,a1,false));
-                // c3.push_back(AgencyPairNode(a1,a2,node,true));
-                // c3.push_back(NodeAgency(node,a2,true));
-
-                // clauses.push_back(c1);
-                // clauses.push_back(c2);
-                // clauses.push_back(c3);
-
-                // c0.push_back(AgencyPairNode(a1,a2,node,true));
                 vector<int> c1;
                 c1.push_back(node*x+a1);
                 c1.push_back(-indexCounter);
@@ -259,12 +180,6 @@ int main(int argc, char** argv){
 
     ofstream myfile;
     myfile.open (argv[2]);
-    // for(auto i: Variable::idToVariable){
-    //     string s=i.second;
-    //     if(s[0]=='-'){
-    //     myfile<<i.first<<" "<<s<<endl;
-    //     }
-    // }
     myfile<<numVertices<<" "<<numAgencies<<endl;
     myfile.close();
 
