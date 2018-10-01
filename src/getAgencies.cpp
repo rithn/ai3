@@ -16,7 +16,7 @@ int main(int argc, char** argv){
     metafile.open(argv[1]); //metadata on graph
     int numVertices,numAgencies,x;
     metafile>>numVertices>>numAgencies;
-    x=max(numVertices,numAgencies);
+    // x=max(numVertices,numAgencies);
     metafile.close();
 
     sat.open(argv[2]);
@@ -31,12 +31,12 @@ int main(int argc, char** argv){
         return 0;
     }
  
-    for(int i=0;i<x*x + x + 1;i++){
+    for(int i=0;i<numVertices*numAgencies;i++){
         sat>>v;
-        if(v>0 && abs(v)%x<=numAgencies){
+        if(v>0 && v<=numVertices*numAgencies){
             // cout<<v<<endl;
-            agency=v%x;
-            node=(v-agency)/x;
+            agency=v%numAgencies;
+            node=(v-agency)/numAgencies +1;
             agencies[agency].push_back(node);
         }
     }
