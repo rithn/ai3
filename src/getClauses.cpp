@@ -16,6 +16,9 @@ vector< set<int> > graph;
 
 vector<vector<int> > clauses;
 
+inline int mapping(int n,int a){
+    return (n-1)*numAgencies +a;
+}
 
 
 int main(int argc, char** argv){
@@ -34,11 +37,13 @@ int main(int argc, char** argv){
         graph[b].insert(a);
     }
 
+
+
     //Clauses for checking if each node has at least one agency (extra)
     for(int vertex=1;vertex<=numVertices;vertex++){
         vector<int> clause;
         for(int agency=1;agency<=numAgencies;agency++){
-            clause.push_back(vertex*x + agency);
+            clause.push_back(mapping(vertex,agency));
         }
         clauses.push_back(clause);
     }
@@ -48,7 +53,7 @@ int main(int argc, char** argv){
     for(int agency=1;agency<=numAgencies;agency++){
         vector<int> clause;
         for(int vertex=1;vertex<=numVertices;vertex++){
-            clause.push_back(vertex*x + agency);
+            clause.push_back(mapping(vertex,agency));
         }
         clauses.push_back(clause);
     }
@@ -57,8 +62,9 @@ int main(int argc, char** argv){
     elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
     cout<<"Time elapsed- "<<elapsed_secs<<endl;
  
-    int indexCounter=x*x + x + 1;
- 
+    // int indexCounter=x*x + x + 1;
+    int indexCounter=numVertices*numAgencies+1;
+
     //Clauses for checking if edge between n1 & n2 implies at least one common agency
     for(int n1=1;n1<=numVertices;n1++){
         for(auto n2: graph[n1]){
@@ -67,18 +73,18 @@ int main(int argc, char** argv){
             vector<int> c0;
             for(int agency=1;agency<=numAgencies;agency++){
                 vector<int> c1;
-                c1.push_back(n1*x+agency);
+                c1.push_back(mapping(n1,agency));
                 c1.push_back(-indexCounter);
             
                 vector<int> c2;
-                c2.push_back(-(n1*x+agency) );
+                c2.push_back(-mapping(n1,agency) );
                 c2.push_back(-indexCounter);
-                c2.push_back(n2*x+agency);
+                c2.push_back(mapping(n2,agency));
 
                 vector<int> c3;
-                c3.push_back(-(n1*x+agency) );
+                c3.push_back(-mapping(n1,agency) );
                 c3.push_back(indexCounter);
-                c3.push_back(-(n2*x+agency));
+                c3.push_back(-mapping(n2,agency));
 
                 clauses.push_back(c1);
                 clauses.push_back(c2);
@@ -105,8 +111,8 @@ int main(int argc, char** argv){
             for(int agency=1;agency<=numAgencies;agency++){
                 vector<int> c0;
 
-                c0.push_back(-(n1*x+agency) );
-                c0.push_back(-(n2*x+agency));
+                c0.push_back(-mapping(n1,agency) );
+                c0.push_back(-mapping(n2,agency));
 
                 clauses.push_back(c0);
 
@@ -129,18 +135,18 @@ int main(int argc, char** argv){
             vector<int> c0;
             for(int node=1;node<=numVertices;node++){
                 vector<int> c1;
-                c1.push_back(node*x+a1);
+                c1.push_back(mapping(node,a1));
                 c1.push_back(-indexCounter);
             
                 vector<int> c2;
-                c2.push_back(-(node*x+a1) );
+                c2.push_back(-mapping(node,a1) );
                 c2.push_back(-indexCounter);
-                c2.push_back(-(node*x+a2) );
+                c2.push_back(-mapping(node,a2) );
 
                 vector<int> c3;
-                c3.push_back(-(node*x+a1) );
+                c3.push_back(-mapping(node,a1) );
                 c3.push_back(indexCounter);
-                c3.push_back(node*x+a2);
+                c3.push_back(mapping(node,a2));
 
                 clauses.push_back(c1);
                 clauses.push_back(c2);
